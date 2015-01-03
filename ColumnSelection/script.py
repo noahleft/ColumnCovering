@@ -3,6 +3,7 @@
 from sys import argv
 from gene import row
 from gene import gene
+from gene import generationList
 import random
 
 with open(argv[1],'r') as infile:
@@ -22,11 +23,15 @@ def binary(i,length):
     s='0'*(length-len(s))+s
   return s
 
+### create original generation (race)
 original_generation=[]
 for index in range(5):
   original_generation.append(gene(binary(random.getrandbits(dataSize),dataSize),dataList))
+###
 
-for gene in original_generation:
+race=generationList(original_generation)  # race history
+
+for gene in race.getLastGeneration():
   gene.dump()
   print()
 

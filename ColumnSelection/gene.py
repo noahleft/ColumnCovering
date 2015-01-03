@@ -26,3 +26,17 @@ class gene:
     print('gene sequence ',self.sequence)
     print('gene fault distribution',self.getDetailFitness())
 
+
+class generationList:
+  def __init__(self,generation):
+    self.original=generation
+    self.history=[generation]
+  def getLastGeneration(self):
+    return self.history[::-1][0]
+  def evolution(self):
+    self.history.append(self.feed(self.getLastGeneration))
+  def feed(self,generation):
+    newGeneration=generation
+    return newGeneration
+
+
