@@ -4,7 +4,7 @@ from sys import argv
 
 print('# of colunm:',argv[1])
 print('# of row   :',argv[2])
-
+'''
 def randomGen(ratio=0.5):
   tmp=random.random()
   if tmp<ratio:
@@ -13,6 +13,13 @@ def randomGen(ratio=0.5):
     return '0'
   else:
     return '1'
+'''
+
+def randomGen():
+  if random.random()>0.5:
+    return '1'
+  else:
+    return '0'
 
 with open('data.csv','w') as outfile:
   for index in range(int(argv[2])):
