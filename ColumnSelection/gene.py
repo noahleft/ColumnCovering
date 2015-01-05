@@ -34,11 +34,11 @@ class gene:
 
 
 class generationList:
-  def __init__(self,generationSize,dataSize,dataList,parent,cross):
+  def __init__(self,generationSize,dataSize,dataList,parent,cross,matting=None):
     self.race=OneMax(population=generationSize,termination=100, \
                      fitnessFunc=lambda x:gene(x,dataList).calculate_fitness(), \
                      parentSelect=parent,crossOver=cross)
-    self.race.initialize(dataSize)
+    self.race.initialize(dataSize,matting)
   def getLastGeneration(self,dataList):
     return list(map(lambda y:gene(y,dataList),self.race.mattingPool))
   def evolution(self):

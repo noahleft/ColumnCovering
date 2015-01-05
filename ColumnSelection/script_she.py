@@ -33,12 +33,18 @@ def binary(i,length):
 #  original_generation.append(gene(binary(random.getrandbits(dataSize),dataSize),dataList))
 ###
 
+import shelve
+db=shelve.open('ec.shelve','r')
+
 #pare=RouletteSelection
 pare=TournamentSelection
 
-import shelve
-db=shelve.open('ec.shelve','r')
-race=db['ec']
+race=generationList(generationSize=50, \
+                    dataSize=dataSize, \
+                    dataList=dataList, \
+                    parent=pare, \
+                    cross=oneCutCrossOver, \
+                    matting=db['ec'])  # race history
 db.close()
 
 
@@ -60,6 +66,6 @@ print('dumping result')
 dump(race)
 
 db=shelve.open('ec.shelve')
-db['ec']=race
+db['ec']=race.race.mattingPool
 db.close()
 

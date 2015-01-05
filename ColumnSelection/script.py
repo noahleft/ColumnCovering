@@ -61,6 +61,6 @@ dump(race)
 
 import shelve
 db=shelve.open('ec.shelve')
-db['ec']=race
+db['ec']=race.race.mattingPool
 db.close()
 

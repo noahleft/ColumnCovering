@@ -9,9 +9,12 @@ class OneMax:
     self.fitnessFunc=fitnessFunc
     self.parentSelect=parentSelect
     self.crossOver=crossOver
-  def initialize(self,dataSize):
-    self.mattingPool=list(map(lambda x: '0'*(dataSize-len(bin(x)[2:]))+bin(x)[2:], \
-                              [getrandbits(dataSize) for i in range(self.population)]))
+  def initialize(self,dataSize,mattingPool=None):
+    if mattingPool:
+      self.mattingPool=mattingPool
+    else:
+      self.mattingPool=list(map(lambda x: '0'*(dataSize-len(bin(x)[2:]))+bin(x)[2:], \
+                                [getrandbits(dataSize) for i in range(self.population)]))
     self.bestFitnessRecord=[]
     self.updateFitnessRecord()
   def updateFitnessRecord(self):
