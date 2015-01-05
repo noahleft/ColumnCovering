@@ -50,6 +50,7 @@ def dump(race):
   for gene in list(filter(lambda x: x.calculate_fitness()==max(fitnessList)  , \
                           race.getLastGeneration(dataList))):
     gene.dump(detail=True)
+    break
 
 print('original race:')
 dump(race)

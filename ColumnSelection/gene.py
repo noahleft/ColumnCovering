@@ -13,10 +13,10 @@ class gene:
     self.sequence=gene_seq
     self.setup(rowList)
   def setup(self,rowList):
+    ones=list(filter(lambda index: self.sequence[index]=='1',list(range(len(self.sequence)))))
     self.data=row([0]+[0]*len(rowList[0].data))
-    for index in range(len(self.sequence)):
-      if self.sequence[index]=='1':
-        self.data.combine(rowList[index])
+    for index in ones:
+      self.data.combine(rowList[index])
     return self.calculate_fitness()
   def calculate_fitness(self):
     return len(list(filter(lambda x:x>0,self.data.data)))-sum(self.data.data)/len(self.data.data)
@@ -32,7 +32,7 @@ class gene:
 
 class generationList:
   def __init__(self,generationSize,dataSize,dataList,parent,cross):
-    self.race=OneMax(population=generationSize,termination=10, \
+    self.race=OneMax(population=generationSize,termination=100, \
                      fitnessFunc=lambda x:gene(x,dataList).calculate_fitness(), \
                      parentSelect=parent,crossOver=cross)
     self.race.initialize(dataSize)
