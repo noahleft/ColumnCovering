@@ -7,6 +7,9 @@ class row:
     self.data=data_row[1:]
   def combine(self,other):
     self.data=list(map(lambda x: self.data[x]+other.data[x],range(len(self.data))))
+  def combineMult(self,others):
+    self.data=list(map(lambda x: sum([others[y].data[x] for y in range(len(others))]),range(len(self.data))))
+
 
 class gene:
   def __init__(self,gene_seq,rowList):
@@ -15,8 +18,8 @@ class gene:
   def setup(self,rowList):
     ones=list(filter(lambda index: self.sequence[index]=='1',list(range(len(self.sequence)))))
     self.data=row([0]+[0]*len(rowList[0].data))
-    for index in ones:
-      self.data.combine(rowList[index])
+    rows=list(map(lambda x:rowList[x],ones))
+    self.data.combineMult(rows)
     return self.calculate_fitness()
   def calculate_fitness(self):
     return len(list(filter(lambda x:x>0,self.data.data)))-sum(self.data.data)/len(self.data.data)
