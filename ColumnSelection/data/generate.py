@@ -16,7 +16,7 @@ def randomGen(ratio=0.5):
 '''
 
 def randomGen():
-  if random.random()>0.5:
+  if random.random()>0.8:
     return '1'
   else:
     return '0'

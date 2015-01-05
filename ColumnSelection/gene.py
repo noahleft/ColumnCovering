@@ -1,4 +1,5 @@
 #!/usr/local/bin/python3
+from OneMax import OneMax
 
 class row:
   def __init__(self,data_row):
@@ -21,22 +22,23 @@ class gene:
     return len(list(filter(lambda x:x>0,self.data.data)))-sum(self.data.data)/len(self.data.data)
   def getDetailFitness(self):
     return self.data.data
-  def dump(self):
+  def dump(self,detail=False):
     print('gene fitness ',self.calculate_fitness(),end='\t')
-    print('gene sequence ',self.sequence)
-    print('gene fault distribution',self.getDetailFitness())
+    print('gene sequence ',len(list(filter(lambda x:x=='1',self.sequence))),'/',len(self.sequence))
+    if detail:
+      print('gene sequence ',self.sequence)
+      print('gene fault distribution',self.getDetailFitness())
 
 
 class generationList:
-  def __init__(self,generation):
-    self.original=generation
-    self.history=[generation]
-  def getLastGeneration(self):
-    return self.history[::-1][0]
+  def __init__(self,generationSize,dataSize,dataList,parent,cross):
+    self.race=OneMax(population=generationSize,termination=10, \
+                     fitnessFunc=lambda x:gene(x,dataList).calculate_fitness(), \
+                     parentSelect=parent,crossOver=cross)
+    self.race.initialize(dataSize)
+  def getLastGeneration(self,dataList):
+    return list(map(lambda y:gene(y,dataList),self.race.mattingPool))
   def evolution(self):
-    self.history.append(self.feed(self.getLastGeneration))
-  def feed(self,generation):
-    newGeneration=generation
-    return newGeneration
+    self.race.run()
 
 

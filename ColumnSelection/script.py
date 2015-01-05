@@ -6,6 +6,10 @@ from gene import gene
 from gene import generationList
 import random
 
+from parentSelection import RouletteSelection
+from parentSelection import TournamentSelection
+from fitness import oneCutCrossOver
+
 with open(argv[1],'r') as infile:
   strlines=infile.readlines()
   table={'0':0,'1':1}
@@ -15,7 +19,7 @@ with open(argv[1],'r') as infile:
 dataSize=len(dataList)
 dataLeng=len(dataList[0].data) # not important term
 print('There are ',dataSize,' candidate gene.')
-print('Generation size ',5)
+print('Generation size ',50)
 
 def binary(i,length):
   s=bin(i)[2:]
@@ -24,17 +28,35 @@ def binary(i,length):
   return s
 
 ### create original generation (race)
-original_generation=[]
-for index in range(5):
-  original_generation.append(gene(binary(random.getrandbits(dataSize),dataSize),dataList))
+#original_generation=[]
+#for index in range(5):
+#  original_generation.append(gene(binary(random.getrandbits(dataSize),dataSize),dataList))
 ###
 
-race=generationList(original_generation)  # race history
+#pare=RouletteSelection
+pare=TournamentSelection
 
-for gene in race.getLastGeneration():
-  gene.dump()
-  print()
+race=generationList(generationSize=50, \
+                    dataSize=dataSize, \
+                    dataList=dataList, \
+                    parent=pare, \
+                    cross=oneCutCrossOver)  # race history
 
+def calFitnessList(race):
+  return list(map(lambda x: x.calculate_fitness() ,race.getLastGeneration(dataList)))
+
+def dump(race):
+  fitnessList=calFitnessList(race)
+  for gene in list(filter(lambda x: x.calculate_fitness()==max(fitnessList)  , \
+                          race.getLastGeneration(dataList))):
+    gene.dump(detail=True)
+
+print('original race:')
+dump(race)
+
+race.evolution()
+print('dumping result')
+dump(race)
 
 
 
