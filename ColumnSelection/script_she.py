@@ -36,11 +36,11 @@ def binary(i,length):
 #pare=RouletteSelection
 pare=TournamentSelection
 
-race=generationList(generationSize=50, \
-                    dataSize=dataSize, \
-                    dataList=dataList, \
-                    parent=pare, \
-                    cross=oneCutCrossOver)  # race history
+import shelve
+db=shelve.open('ec.shelve','r')
+race=db['ec']
+db.close()
+
 
 def calFitnessList(race):
   return list(map(lambda x: x.calculate_fitness() ,race.getLastGeneration(dataList)))
@@ -59,7 +59,6 @@ race.evolution()
 print('dumping result')
 dump(race)
 
-import shelve
 db=shelve.open('ec.shelve')
 db['ec']=race
 db.close()
