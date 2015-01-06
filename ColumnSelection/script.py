@@ -9,6 +9,7 @@ import random
 from parentSelection import RouletteSelection
 from parentSelection import TournamentSelection
 from fitness import oneCutCrossOver
+from fitness import uniformCrossOver
 
 with open(argv[1],'r') as infile:
   strlines=infile.readlines()
@@ -40,7 +41,7 @@ race=generationList(generationSize=100, \
                     dataSize=dataSize, \
                     dataList=dataList, \
                     parent=pare, \
-                    cross=oneCutCrossOver)  # race history
+                    cross=uniformCrossOver)  # race history
 
 def calFitnessList(race):
   return list(map(lambda x: x.calculate_fitness() ,race.getLastGeneration(dataList)))

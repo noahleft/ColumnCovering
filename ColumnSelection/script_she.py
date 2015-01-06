@@ -9,6 +9,7 @@ import random
 from parentSelection import RouletteSelection
 from parentSelection import TournamentSelection
 from fitness import oneCutCrossOver
+from fitness import uniformCrossOver
 
 with open(argv[1],'r') as infile:
   strlines=infile.readlines()
@@ -43,7 +44,7 @@ race=generationList(generationSize=50, \
                     dataSize=dataSize, \
                     dataList=dataList, \
                     parent=pare, \
-                    cross=oneCutCrossOver, \
+                    cross=uniformCrossOver, \
                     matting=db['ec'])  # race history
 db.close()
 
