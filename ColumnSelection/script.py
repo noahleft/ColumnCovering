@@ -36,7 +36,7 @@ def binary(i,length):
 #pare=RouletteSelection
 pare=TournamentSelection
 
-race=generationList(generationSize=50, \
+race=generationList(generationSize=100, \
                     dataSize=dataSize, \
                     dataList=dataList, \
                     parent=pare, \
@@ -49,7 +49,7 @@ def dump(race):
   fitnessList=calFitnessList(race)
   for gene in list(filter(lambda x: x.calculate_fitness()==max(fitnessList)  , \
                           race.getLastGeneration(dataList))):
-    gene.dump(detail=True)
+    gene.dump()
     break
 
 print('original race:')

@@ -61,11 +61,11 @@ def dump(race):
 print('original race:')
 dump(race)
 
-race.evolution()
-print('dumping result')
-dump(race)
-
+'''
 db=shelve.open('ec.shelve')
 db['ec']=race.race.mattingPool
 db.close()
+'''
+
+
 
