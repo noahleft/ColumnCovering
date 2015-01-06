@@ -54,10 +54,8 @@ def calFitnessList(race):
 
 def dump(race):
   fitnessList=calFitnessList(race)
-  for gene in list(filter(lambda x: x.calculate_fitness()==max(fitnessList)  , \
-                          race.getLastGeneration(dataList))):
+  for gene in list(sorted(race.getLastGeneration(dataList),key=lambda x: x.calculate_fitness(),reverse=True))[:5]:
     gene.dump(detail=True)
-    break
 
 print('original race:')
 dump(race)

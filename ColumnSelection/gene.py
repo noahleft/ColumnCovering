@@ -23,7 +23,7 @@ class gene:
     return self.calculate_fitness()
   def calculate_fitness(self):
     #return len(list(filter(lambda x:x>0,self.data.data)))-sum(self.data.data)/len(self.data.data)
-    return len(list(filter(lambda x:x>0,self.data.data)))-len(list(filter(lambda y:y=='1',self.sequence)))/len(self.sequence)
+    #return len(list(filter(lambda x:x>0,self.data.data)))-len(list(filter(lambda y:y=='1',self.sequence)))/len(self.sequence)
     fault=  len(list(filter(lambda x:x>0,self.data.data)))/len(self.data.data)
     pattern=len(list(filter(lambda y:y=='0',self.sequence)))/len(self.sequence)
     bias=   int(fault)
