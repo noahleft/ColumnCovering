@@ -33,7 +33,8 @@ class OneMax:
       print('\r',i,end='')
       self.runEpoch()
   def runEpoch(self):
-    newMattingPool=[self.mattingPool[:int(len(self.mattingPool)/10)]]
+    #newMattingPool=[self.mattingPool[:int(len(self.mattingPool)/10)]]
+    newMattingPool=[]
     for i in range(int(self.population/2)):
       newMattingPool.extend(self.production())
     self.mattingPool=sorted(newMattingPool,key=self.fitnessFunc,reverse=True)

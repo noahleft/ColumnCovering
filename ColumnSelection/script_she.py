@@ -54,17 +54,21 @@ def calFitnessList(race):
 
 def dump(race):
   fitnessList=calFitnessList(race)
-  for gene in list(sorted(race.getLastGeneration(dataList),key=lambda x: x.calculate_fitness(),reverse=True))[:5]:
+  for gene in list(sorted(race.getLastGeneration(dataList),key=lambda x: x.calculate_fitness(),reverse=True))[:1]:
     gene.dump(detail=True)
 
 print('original race:')
 dump(race)
 
-'''
+race.evolution()
+print('dumping result')
+dump(race)
+
 db=shelve.open('ec.shelve')
 db['ec']=race.race.mattingPool
 db.close()
-'''
 
+
+race.race.writeOut('ec.csv')
 
 

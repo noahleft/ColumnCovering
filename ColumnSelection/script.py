@@ -65,3 +65,5 @@ db=shelve.open('ec.shelve')
 db['ec']=race.race.mattingPool
 db.close()
 
+race.race.writeOut('ec.csv')
+
